@@ -1,5 +1,7 @@
 package be.vdab.services;
 
+import java.util.List;
+
 import be.vdab.entities.Artikel;
 import be.vdab.repositories.ArtikelRepository;
 
@@ -15,6 +17,10 @@ public class ArtikelService extends AbstractService {
 		beginTransaction();
 		artikelRepository.create(artikel);
 		commit();
+	}
+	
+	public List<Artikel> findLikeNaam(String naam) {
+		return artikelRepository.findLikeNaam(naam);
 	}
 
 }
