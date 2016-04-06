@@ -8,8 +8,9 @@
 	<named-query name='Artikel.findLikeNaam'>
 		<query>
 			SELECT a FROM Artikel a
-			WHERE a.naam LIKE '%:string%'
+			WHERE a.naam LIKE :naam
 			ORDER BY a.id
 		</query>
 	</named-query>
+	
 </entity-mappings>

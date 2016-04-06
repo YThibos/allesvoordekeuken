@@ -18,7 +18,7 @@ import be.vdab.services.ArtikelService;
 public class ZoekenOpNaamServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private static final String VIEW = "/WEB-INF/JSP/zoekenopnaam.jsp";
+	private static final String VIEW = "/WEB-INF/JSP/artikels/zoekenopnaam.jsp";
 	private final transient ArtikelService artikelService = new ArtikelService(); 
 
 	/**
@@ -28,13 +28,13 @@ public class ZoekenOpNaamServlet extends HttpServlet {
 		
 		if (request.getQueryString() != null) {
 			
-			String naam = request.getParameter("naam");
+			String naam = request.getParameter("woord");
 			
 			if (naam.isEmpty()) {
 				request.setAttribute("fouten", Collections.singletonMap("woord", "zoekstring mag niet leeg zijn"));
 			}
 			else {
-				request.setAttribute("artikels", artikelService.findLikeNaam(naam));
+				request.setAttribute("artikels", artikelService.findLikeNaam("%" + naam + "%"));
 			}
 			
 		}
