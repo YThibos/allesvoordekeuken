@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import be.vdab.entities.Artikel;
+import be.vdab.entities.FoodArtikel;
+import be.vdab.entities.NonFoodArtikel;
 import be.vdab.services.ArtikelService;
 
 /**
@@ -70,8 +72,47 @@ public class ToevoegenServlet extends HttpServlet {
 			fouten.put("verkoopprijs", "Geef een niet-negatief getal in, hoger dan de aankoopprijs");
 		}
 		
+		String soort = request.getParameter("soort");
+		
+		int houdbaarheid = 0;
+		int garantie = 0;
+		
+		if (soort != null) {
+			
+			if (soort.equals("F")) {
+				try {
+					houdbaarheid = Integer.parseInt(request.getParameter("houdbaarheid"));
+				}
+				catch (NumberFormatException ex) {
+					fouten.put("houdbaarheid", "Geef een (strikt) positief getal in");
+				}
+				
+			}
+			else if (soort.equals("NF")) {
+				try {
+					garantie = Integer.parseInt(request.getParameter("garantie"));
+				}
+				catch (NumberFormatException ex) {
+					fouten.put("garantie", "Geef een (strikt) positief getal in");
+				}
+			}
+			else {
+				fouten.put("soort", "Ongeldige soort parameter");
+			}
+			
+		}
+		else {
+			fouten.put("soort", "Duid een soort aan");
+		}
+		
 		if (fouten.isEmpty()) {
-			Artikel nieuwArtikel = new Artikel(naam, aankoopprijs, verkoopprijs);
+			Artikel nieuwArtikel;
+			if (soort.equals("F")) {
+				nieuwArtikel = new FoodArtikel(naam, aankoopprijs, verkoopprijs, houdbaarheid);
+			}
+			else {
+				nieuwArtikel = new NonFoodArtikel(naam, aankoopprijs, verkoopprijs, garantie);
+			}
 			artikelService.create(nieuwArtikel);
 			response.sendRedirect(response.encodeRedirectURL(
 					String.format(REDIRECT_URL, request.getContextPath(), nieuwArtikel.getId()))
