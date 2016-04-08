@@ -19,5 +19,12 @@
 			SET a.verkoopprijs = a.verkoopprijs * :factor
 		</query>
 	</named-query>
+
+	<named-query name="Artikel.findAll">
+		<query>
+			SELECT a FROM Artikel a
+			ORDER BY a.naam ASC
+		</query>
+	</named-query>	
 	
 </entity-mappings>

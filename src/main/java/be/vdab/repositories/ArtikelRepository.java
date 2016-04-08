@@ -27,4 +27,9 @@ public class ArtikelRepository extends AbstractRepository {
 			.executeUpdate();
 	}
 
+	public List<Artikel> findAll() {
+		return getEntityManager().createNamedQuery("Artikel.findAll", Artikel.class)
+				.getResultList();
+	}
+
 }

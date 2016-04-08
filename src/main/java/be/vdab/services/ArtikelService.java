@@ -33,5 +33,9 @@ public class ArtikelService extends AbstractService {
 		commit();
 		
 	}
+	
+	public List<Artikel> findAll() {
+		return artikelRepository.findAll();
+	}
 
 }
