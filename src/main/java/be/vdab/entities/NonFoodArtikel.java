@@ -16,8 +16,8 @@ public class NonFoodArtikel extends Artikel {
 	// CONSTRUCTORS
 	protected NonFoodArtikel() {}
 	
-	public NonFoodArtikel(String naam, BigDecimal aankoopprijs, BigDecimal verkoopprijs, int garantie) {
-		super(naam, aankoopprijs, verkoopprijs);
+	public NonFoodArtikel(String naam, BigDecimal aankoopprijs, BigDecimal verkoopprijs, int garantie, Artikelgroep artikelgroep) {
+		super(naam, aankoopprijs, verkoopprijs, artikelgroep);
 		setGarantie(garantie);
 	}
 

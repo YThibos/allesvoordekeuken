@@ -16,8 +16,12 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ManyToAny;
 
 import be.vdab.valueobjects.Korting;
 
@@ -42,13 +46,18 @@ public abstract class Artikel implements Serializable {
 	@OrderBy("vanafAantal")
 	private Set<Korting> kortingen;
 	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "artikelgroepid")
+	private Artikelgroep artikelgroep;
+	
 	// CONSTRUCTORS
 	protected Artikel() {};
 	
-	public Artikel(String naam, BigDecimal aankoopprijs, BigDecimal verkoopprijs) {
+	public Artikel(String naam, BigDecimal aankoopprijs, BigDecimal verkoopprijs, Artikelgroep artikelgroep) {
 		setNaam(naam);
 		setAankoopprijs(aankoopprijs);
 		setVerkoopprijs(verkoopprijs);
+		setArtikelgroep(artikelgroep);
 		kortingen = new HashSet<>();
 	}
 
@@ -88,6 +97,12 @@ public abstract class Artikel implements Serializable {
 	}
 	public Set<Korting> getKortingen() {
 		return Collections.unmodifiableSet(kortingen);
+	}
+	public void setArtikelgroep(Artikelgroep artikelgroep) {
+		this.artikelgroep = artikelgroep;
+	}
+	public Artikelgroep getArtikelgroep() {
+		return artikelgroep;
 	}
 	
 	// VALIDATION METHODS

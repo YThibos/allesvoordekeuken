@@ -16,8 +16,8 @@ public class FoodArtikel extends Artikel {
 	// CONSTRUCTORS
 	protected FoodArtikel() {} ;
 
-	public FoodArtikel(String naam, BigDecimal aankoopprijs, BigDecimal verkoopprijs, int houdbaarheid) {
-		super(naam, aankoopprijs, verkoopprijs);
+	public FoodArtikel(String naam, BigDecimal aankoopprijs, BigDecimal verkoopprijs, int houdbaarheid, Artikelgroep artikelgroep) {
+		super(naam, aankoopprijs, verkoopprijs, artikelgroep);
 		setHoudbaarheid(houdbaarheid);
 	}
 

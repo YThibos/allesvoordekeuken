@@ -27,4 +27,10 @@
 		</query>
 	</named-query>	
 	
+	<named-query name="Artikelgroep.findAll">
+		<query>
+			SELECT a FROM Artikelgroep a ORDER BY a.naam ASC
+		</query>	
+	</named-query>
+	
 </entity-mappings>

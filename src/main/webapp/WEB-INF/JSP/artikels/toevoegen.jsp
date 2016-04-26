@@ -47,6 +47,18 @@
 				<input name='soort' value='NF' type='radio' id='nonfood' ${param.soort == "NF" ? "checked" : ""}>Non-Food
 			</label>
 		</div>
+		
+		<label>
+			Artikelgroep: <span>${fouten.artikelgroep}</span>
+			<select name="artikelgroepid" size="${artikelgroepen.size() }" required>
+				<c:forEach items="${artikelgroepen}" var="artikelgroep">
+					<option value="${artikelgroep.id}"
+						${artikelgroep.id == param.artikelgroepid ? "selected" : ""}>
+						${artikelgroep} 
+					</option>
+				</c:forEach>
+			</select>
+		</label>
 
 		<label>
 			Garantie: <span>${fouten.garantie}</span>
