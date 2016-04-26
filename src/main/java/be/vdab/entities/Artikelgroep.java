@@ -1,9 +1,12 @@
 package be.vdab.entities;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,6 +17,9 @@ public class Artikelgroep {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String naam;
+	
+	@OneToMany(mappedBy = "artikelgroep")
+	private Set<Artikel> artikels;
 	
 	protected Artikelgroep() {}
 	
@@ -31,6 +37,24 @@ public class Artikelgroep {
 
 	public void setNaam(String naam) {
 		this.naam = naam;
+	}
+	
+	public Set<Artikel> getArtikels() {
+		return artikels;
+	}
+	
+	public void addArtikel(Artikel artikel) {
+		artikels.add(artikel);
+		if (artikel.getArtikelgroep() != this) {
+			artikel.setArtikelgroep(this);
+		}
+	}
+	
+	public void removeArtikel(Artikel artikel) {
+		artikels.remove(artikel);
+		if (artikel.getArtikelgroep() == this) {
+			artikel.setArtikelgroep(null);
+		}
 	}
 
 	@Override

@@ -37,5 +37,9 @@ public class ArtikelService extends AbstractService {
 	public List<Artikel> findAll() {
 		return artikelRepository.findAll();
 	}
+	
+	public List<Artikel> findAllMetArtikelgroep() {
+		return artikelRepository.findAllMetArtikelgroep();
+	}
 
 }

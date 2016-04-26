@@ -10,6 +10,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,11 +18,10 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.ManyToAny;
 
 import be.vdab.valueobjects.Korting;
 
@@ -29,6 +29,7 @@ import be.vdab.valueobjects.Korting;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "artikels")
 @DiscriminatorColumn(name = "soort")
+@NamedEntityGraph(name = "Artikel.metArtikelGroep", attributeNodes = @NamedAttributeNode("artikelgroep"))
 public abstract class Artikel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -46,7 +47,7 @@ public abstract class Artikel implements Serializable {
 	@OrderBy("vanafAantal")
 	private Set<Korting> kortingen;
 	
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "artikelgroepid")
 	private Artikelgroep artikelgroep;
 	
@@ -99,7 +100,15 @@ public abstract class Artikel implements Serializable {
 		return Collections.unmodifiableSet(kortingen);
 	}
 	public void setArtikelgroep(Artikelgroep artikelgroep) {
+		// Verwijderen uit artikelgroep die nu naar this Artikel verwijst
+		if (this.artikelgroep != null && this.artikelgroep.getArtikels().contains(this)) {
+			this.artikelgroep.removeArtikel(this);
+		}
 		this.artikelgroep = artikelgroep;
+		// Toevoegen in nieuwe artikelgroep
+		if (artikelgroep != null && !artikelgroep.getArtikels().contains(this)) {
+			artikelgroep.addArtikel(this);
+		}
 	}
 	public Artikelgroep getArtikelgroep() {
 		return artikelgroep;

@@ -9,5 +9,6 @@
 		<li><a href="<c:url value='/artikels/prijsverhoging.htm'/>">Prijsverhoging</a></li>
 		<li><a href="<c:url value='/artikels/kortingen.htm'/>">Artikelkortingen</a></li>
 		<li><a href="<c:url value='/artikels/perartikelgroep.htm'/>">Artikels per groep</a></li>
+		<li><a href="<c:url value='/artikels/artikellijst.htm'/>">Artikellijst</a></li>
 	</ul>
 </nav>
