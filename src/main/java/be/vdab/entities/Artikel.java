@@ -29,10 +29,12 @@ import be.vdab.valueobjects.Korting;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "artikels")
 @DiscriminatorColumn(name = "soort")
-@NamedEntityGraph(name = "Artikel.metArtikelGroep", attributeNodes = @NamedAttributeNode("artikelgroep"))
+@NamedEntityGraph(name = Artikel.MET_ARTIKELGROEP, attributeNodes = @NamedAttributeNode("artikelgroep"))
 public abstract class Artikel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String MET_ARTIKELGROEP = "Artikel.metArtikelgroep";
+	
 	public static BigDecimal MINIMUM_AANKOOPPRIJS = BigDecimal.valueOf(0.01);
 	
 	@Id

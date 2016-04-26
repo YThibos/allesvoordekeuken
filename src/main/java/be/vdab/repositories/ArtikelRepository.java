@@ -34,7 +34,7 @@ public class ArtikelRepository extends AbstractRepository {
 	
 	public List<Artikel> findAllMetArtikelgroep() {
 		return getEntityManager().createNamedQuery("Artikel.findAll", Artikel.class)
-				.setHint("javax.persistence.loadgraph", getEntityManager().createEntityGraph("Artikel.metArtikelgroep"))
+				.setHint("javax.persistence.loadgraph", getEntityManager().createEntityGraph(Artikel.MET_ARTIKELGROEP))
 				.getResultList();
 	}
 
